@@ -11,6 +11,26 @@ Dependencies
 
 How it works
 ---
+First of all you need to have <b>ILoggingSession</b> instance. You may implement your own session object or use <b>WindowsUniversalLogger.Logging.Sessions.LoggingSession</b> as a singleton:
+```c#
+ILoggingSession session = LoggingSession.Instance;
+```
+Then you need to instantiate one or several <b>ILoggingChannel</b> objects:
+```c#
+ILoggingChannel channel = new FileLoggingChannel("MyChannel");
+await channel.Init();
+session.AddLoggingChannel(channel);
+```
+For writing logging message you need to create ILoggingEntry instance:
+```c#
+await LoggingSession.Instance.LogToAllChannels(
+	new LogEntry(
+		LogLevel.INFO,
+		"App is initialized"));
+```
+
+How to logging unhandled exception in Windows Universal Application
+---
 Coming soon...
 
 License
