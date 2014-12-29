@@ -10,12 +10,6 @@ How it works
 Coming soon...
 
 
-
-License
----
-WindowsUniversalLogger is licensed under <a href="#" target="http://www.apache.org/licenses/LICENSE-2.0" >License Apache 2.0 License</a>. Refer to license file for more information.
-
-
 License
 ---------
 WindowsUniversalLogger is licensed under <a href="#" target="http://www.apache.org/licenses/LICENSE-2.0" >Apache 2.0 License</a>. Refer to license file for more information.
