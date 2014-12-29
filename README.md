@@ -31,7 +31,52 @@ await LoggingSession.Instance.LogToAllChannels(
 
 How to logging unhandled exception in Windows Universal Application
 ---
-Coming soon...
+Сode snippet:
+```c#
+/// ...
+using WindowsUniversalLogger.Interfaces;
+using WindowsUniversalLogger.Interfaces.Channels;
+using WindowsUniversalLogger.Logging;
+using WindowsUniversalLogger.Logging.Channels;
+using WindowsUniversalLogger.Logging.Sessions;
+public sealed partial class App : Application
+{
+	public App()
+	{
+		this.InitializeComponent();
+		this.UnhandledException += OnApplicationUnhandledException;
+
+		// ...
+	}
+	
+	protected async override void OnLaunched(LaunchActivatedEventArgs e)
+	{
+		ILoggingSession session = LoggingSession.Instance;
+		ILoggingChannel channel = new FileLoggingChannel("MyChannel");
+		await channel.Init();
+		session.AddLoggingChannel(channel);
+
+		await LoggingSession.Instance.LogToAllChannels(
+			new LogEntry(
+				LogLevel.INFO,
+				"App is initialized"));
+		
+		// ...
+	}
+
+	private void OnApplicationUnhandledException(object sender, UnhandledExceptionEventArgs e)
+	{
+		LoggingSession.Instance.LogToAllChannels(
+			new LogEntry(
+				LogLevel.ERROR,
+				"Exception: {0}", e.Exception));
+
+		e.Handled = true;
+	}
+
+	// ...
+}
+```
 
 License
 ---
