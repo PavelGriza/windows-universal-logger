@@ -9,6 +9,14 @@ How it works
 ---
 Coming soon...
 
+Dependencies
+---
+- <a href="http://xunit.github.io/" target="_blank">xUnit</a> - unit test framework
+
+License
+---
+WindowsUniversalLogger is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" >License Apache 2.0 License</a>. Refer to license file for more information.
+
 
 License
 ---------
