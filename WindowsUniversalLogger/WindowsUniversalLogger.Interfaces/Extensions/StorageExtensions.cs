@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -55,7 +56,8 @@ namespace WindowsUniversalLogger.Interfaces.Extensions
         /// <param name="rootFolder">Root folder</param>
         /// <param name="folderName">Name of sub folder</param>
         /// <returns>Sub folder</returns>
-        public static async Task<IStorageFolder> GetOrCreateFolderAsync(this IStorageFolder rootFolder, string folderName)
+        public static async Task<IStorageFolder> GetOrCreateFolderAsync(this IStorageFolder rootFolder,
+            string folderName)
         {
             var subFolder = await rootFolder.TryGetItemAsync(folderName) as IStorageFolder ??
                             await rootFolder.CreateFolderAsync(folderName);
@@ -66,6 +68,32 @@ namespace WindowsUniversalLogger.Interfaces.Extensions
         public static async Task<IStorageItem> TryGetItemAsync(this IStorageFolder folder, string name)
         {
             return (await folder.GetItemsAsync()).FirstOrDefault(item => item.Name == name);
+        }
+
+        /// <summary>
+        /// Not so effective but the simpliest way to check is the file exists
+        /// </summary>
+        /// <param name="file">File for check</param>
+        /// <returns></returns>
+        public static async Task<bool> Exists(this IStorageFile file)
+        {
+            if (file == null)
+            {
+                return false;
+            }
+
+            StorageFile current;
+
+            try
+            {
+                current = await StorageFile.GetFileFromPathAsync(file.Path);
+            }
+            catch (FileNotFoundException e)
+            {
+                return false;
+            }
+
+            return current != null;
         }
     }
 }

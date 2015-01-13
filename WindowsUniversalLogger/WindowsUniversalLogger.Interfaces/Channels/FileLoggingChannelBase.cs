@@ -79,23 +79,28 @@ namespace WindowsUniversalLogger.Interfaces.Channels
                 return false;
             }
 
-            var currentFileSize = await this.LoggingFile.GetFileSize();
-            var availableSpace = await this.RootFolder.GetFreeSpace();
-            
-            // todo check is currentFileSize less then MaxFileSize
-
-            var sb = new StringBuilder();
-            sb.Append(logEntry.LogLevel)
-                .Append('\t')
-                .Append(logEntry.Time.ToString("O"))
-                .Append('\t')
-                .Append(logEntry.Message)
-                .AppendLine();
-
-            await _fileLock.WaitAsync();
-
             try
             {
+                if (!await this.LoggingFile.Exists())
+                {
+                    await Init();
+                }
+
+                var currentFileSize = await this.LoggingFile.GetFileSize();
+                var availableSpace = await this.RootFolder.GetFreeSpace();
+
+                // todo check is currentFileSize less then MaxFileSize
+
+                var sb = new StringBuilder();
+                sb.Append(logEntry.LogLevel)
+                    .Append('\t')
+                    .Append(logEntry.Time.ToString("O"))
+                    .Append('\t')
+                    .Append(logEntry.Message)
+                    .AppendLine();
+
+                await _fileLock.WaitAsync();
+
                 await FileIO.AppendTextAsync(this.LoggingFile, sb.ToString(), UnicodeEncoding.Utf8);
             }
             catch (Exception e)
