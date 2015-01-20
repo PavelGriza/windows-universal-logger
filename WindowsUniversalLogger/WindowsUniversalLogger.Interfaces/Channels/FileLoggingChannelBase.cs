@@ -2,7 +2,6 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using WindowsUniversalLogger.Interfaces.Extensions;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
@@ -12,8 +11,9 @@ namespace WindowsUniversalLogger.Interfaces.Channels
     public class FileLoggingChannelBase : IFileLoggingChannel
     {
         private SemaphoreSlim _fileLock = new SemaphoreSlim(1);
+        private string _fileName;
 
-        protected FileLoggingChannelBase(string channelName)
+        protected FileLoggingChannelBase(string channelName, IStorageFolder folder, string fileName)
         {
             if (string.IsNullOrWhiteSpace(channelName))
             {
@@ -22,30 +22,38 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
             this.Name = channelName;
 
-            this.FileName = "logs.txt";
-            this.LocalFolderPath = "Logs";
-            this.RootFolder = ApplicationData.Current.LocalFolder;
-            this.DetailLevel = LogLevel.INFO;
+            if (folder == null)
+            {
+                throw new ArgumentNullException("folder");
+            }
+
+            this.Folder = folder;
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("Variable must be initialized", "fileName");
+            }
+
+            _fileName = fileName;
+
             this.IsEnabled = true;
+            this.DetailLevel = LogLevel.INFO;
         }
 
-
-        public string FileName { get; set; }
-        public string LocalFolderPath { get; private set; }
-        public IStorageFolder RootFolder { get; private set; }
-        public IStorageFolder LoggingFoler { get; private set; }
-        public IStorageFile LoggingFile { get; private set; }
+        public IStorageFolder Folder { get; private set; }
+        public IStorageFile LogFile { get; private set; }
         public ulong MaxFileSize { get; set; }
 
-        public async Task<bool> ChangeLoggingFolder(IStorageFolder rootFolder, string localFolderPath)
+        public async Task<bool> ChangeLoggingFolder(IStorageFolder folder)
         {
-            this.RootFolder = rootFolder;
-            this.LocalFolderPath = localFolderPath;
+            return await this.ChangeLoggingFolder(folder, _fileName);
+        }
 
-            this.LoggingFoler = await rootFolder.GetOrCreateFolderAsync(localFolderPath);
-
-            // todo fire event
-            //throw new NotImplementedException();
+        public async Task<bool> ChangeLoggingFolder(IStorageFolder folder, string fileName)
+        {
+            this.Folder = folder;
+            _fileName = fileName;
+            await Init();
 
             return true;
         }
@@ -58,13 +66,7 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
         public async Task Init()
         {
-            if (string.IsNullOrWhiteSpace(this.FileName))
-            {
-                throw new ArgumentException("Property must be initialized", "FileName");
-            }
-
-            this.LoggingFoler = await this.RootFolder.GetOrCreateFolderAsync(this.LocalFolderPath);
-            this.LoggingFile = await this.LoggingFoler.CreateFileAsync(this.FileName, CreationCollisionOption.OpenIfExists);
+            this.LogFile = await Folder.CreateFileAsync(_fileName, CreationCollisionOption.OpenIfExists);
         }
 
         public async Task<bool> Log(ILogEntry logEntry)
@@ -81,13 +83,13 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
             try
             {
-                if (!await this.LoggingFile.Exists())
+                if (!await this.LogFile.Exists())
                 {
                     await Init();
                 }
 
-                var currentFileSize = await this.LoggingFile.GetFileSize();
-                var availableSpace = await this.RootFolder.GetFreeSpace();
+                var currentFileSize = await this.LogFile.GetFileSize();
+                var availableSpace = await this.Folder.GetFreeSpace();
 
                 // todo check is currentFileSize less then MaxFileSize
 
@@ -101,7 +103,7 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
                 await _fileLock.WaitAsync();
 
-                await FileIO.AppendTextAsync(this.LoggingFile, sb.ToString(), UnicodeEncoding.Utf8);
+                await FileIO.AppendTextAsync(this.LogFile, sb.ToString(), UnicodeEncoding.Utf8);
             }
             catch (Exception e)
             {

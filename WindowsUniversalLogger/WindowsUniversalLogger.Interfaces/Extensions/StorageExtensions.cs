@@ -29,14 +29,13 @@ namespace WindowsUniversalLogger.Interfaces.Extensions
             return size;
         }
 
-
         /// <summary>
         /// Parses subfolderPath and gets or creates new sub folders with predetermined depth relation 
         /// </summary>
         /// <param name="rootFolder">The root folder</param>
         /// <param name="subfolderPath">Sub folder path where each folder is separated by "\\" symbol</param>
         /// <returns>Sub folder</returns>
-        public static async Task<IStorageFolder> GetOrCreateSubfolder(IStorageFolder rootFolder, string subfolderPath)
+        public static async Task<IStorageFolder> GetOrCreateSubfolderAsync(this IStorageFolder rootFolder, string subfolderPath)
         {
             var subFolders = subfolderPath.Split('\\').Where(s => !string.IsNullOrWhiteSpace(s)).ToArray();
 
@@ -87,6 +86,27 @@ namespace WindowsUniversalLogger.Interfaces.Extensions
             try
             {
                 current = await StorageFile.GetFileFromPathAsync(file.Path);
+            }
+            catch (FileNotFoundException e)
+            {
+                return false;
+            }
+
+            return current != null;
+        }
+
+        public static async Task<bool> Exists(this IStorageFolder folder)
+        {
+            if (folder == null)
+            {
+                return false;
+            }
+
+            StorageFolder current;
+
+            try
+            {
+                current = await StorageFolder.GetFolderFromPathAsync(folder.Path);
             }
             catch (FileNotFoundException e)
             {

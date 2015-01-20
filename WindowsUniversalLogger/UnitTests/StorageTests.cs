@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.Storage;
 using WindowsUniversalLogger.Interfaces.Extensions;
 using Xunit;
@@ -46,16 +45,64 @@ namespace UnitTests
             Assert.Equal((ulong)bytes.Length, fileSize);
         }
 
-        public async void CteateSubfolderIfNotExistsTest()
+        [Theory]
+        [InlineData(@"C:\Users\Public\Documents")]
+        public async void GetFreeSpaceTest(string path)
         {
-            StorageFolder rootFolder = await StorageFolder.GetFolderFromPathAsync(@"C:\Users\Public\Documents");
-            string localFolderPath = Path.Combine("Log", "FileLog");
+            var rootFolder = await StorageFolder.GetFolderFromPathAsync(path);
+            var freeSpace = await rootFolder.GetFreeSpace();
+
+            Assert.True(freeSpace > 0);
         }
 
-        private Task<IStorageFolder> GetFolder(IStorageFolder rootFolder, string subfolderPath)
+        [Theory]
+        [InlineData(@"C:\Users\Public\Documents")]
+        public async void CheckIsFileExistsTest(string path)
         {
-            string[] arr = subfolderPath.Split('\\');
-            return null;
+            var rootFolder = await StorageFolder.GetFolderFromPathAsync(path);
+            const string testFileName = "TestFile.dat";
+
+            StorageFile testFile = await rootFolder.CreateFileAsync(testFileName, CreationCollisionOption.ReplaceExisting);
+
+            Assert.True(await testFile.Exists());
+
+            await testFile.DeleteAsync();
+
+            Assert.False(await testFile.Exists());
         }
+
+        [Theory]
+        [InlineData(@"C:\Users\Public\Documents")]
+        public async void CheckIsFolderExistsTest(string path)
+        {
+            var rootFolder = await StorageFolder.GetFolderFromPathAsync(path);
+            const string testFolderName = "TestFolder";
+
+            StorageFolder testFolder = await rootFolder.CreateFolderAsync(testFolderName);
+
+            Assert.True(await testFolder.Exists());
+
+            await testFolder.DeleteAsync();
+
+            Assert.False(await testFolder.Exists());
+        }
+
+        [Theory]
+        [InlineData(@"C:\Users\Public\Documents")]
+        public async void GerOrCreateSubfolderTest(string path)
+        {
+            var rootFolder = await StorageFolder.GetFolderFromPathAsync(path);
+            
+            var testFolder = await rootFolder.CreateFolderAsync("TestFolder");
+            string subfolder1 = "Subfolder1";
+            string subfolder2 = "Subfolder2";
+
+            var subfolder = await testFolder.GetOrCreateSubfolderAsync(Path.Combine(subfolder1, subfolder2));
+
+            Assert.True(await subfolder.Exists());
+
+            await testFolder.DeleteAsync();
+        }
+
     }
 }

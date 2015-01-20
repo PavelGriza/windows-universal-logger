@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
 
 namespace WindowsUniversalLogger.Interfaces.Channels
 {
     public interface IFileLoggingChannel : ILoggingChannel
     {
-        string FileName { get; set; }
-        string LocalFolderPath { get; }
-        IStorageFolder RootFolder { get; }
-        IStorageFolder LoggingFoler { get; }
-        IStorageFile LoggingFile { get; }
+        IStorageFolder Folder { get; }
+        IStorageFile LogFile { get; }
         ulong MaxFileSize { get; set; }
 
-        Task<bool> ChangeLoggingFolder(IStorageFolder rootFolder, string localFolderPath);
+        Task<bool> ChangeLoggingFolder(IStorageFolder folder);
 
         event EventHandler<EventArgs> LoggingFolderChanged;
     }
