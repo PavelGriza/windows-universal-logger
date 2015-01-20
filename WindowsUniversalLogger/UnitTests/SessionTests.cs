@@ -2,6 +2,7 @@
 using System.IO;
 using Windows.Storage;
 using WindowsUniversalLogger.Interfaces;
+using WindowsUniversalLogger.Interfaces.Channels;
 using WindowsUniversalLogger.Logging;
 using WindowsUniversalLogger.Logging.Channels;
 using WindowsUniversalLogger.Logging.Sessions;
@@ -11,46 +12,28 @@ namespace UnitTests
 {
     public class SessionTests
     {
-        [Fact]
-        public void SessionInitTest()
-        {
-            ILoggingSession loggingSession = LoggingSession.Instance;
-
-            loggingSession.Dispose();
-        }
-
         [Theory]
-        [InlineData(@"C:\Users\Public\Documents")]
-        public async void ChannelInitTest(string path)
-        {
-            var fileLoggingChannel = new FileLoggingChannel("FileLoggingChannel",
-                await StorageFolder.GetFolderFromPathAsync(path),
-                Path.Combine("UnitTestLogs", "UnitTest.log"));
-
-            //await fileLoggingChannel.Init();
-
-
-        }
-
-        //[Theory]
         [InlineData(@"C:\Users\Public\Documents")]
         public async void FileSessionTest(string path)
         {
+            string logFileName = "Session.log";
+
             ILoggingSession loggingSession = LoggingSession.Instance;
 
-            //var fileLoggingChannel = new FileLoggingChannel("FileLoggingChannel",
-            //    await StorageFolder.GetFolderFromPathAsync(path),
-            //    Path.Combine("UnitTestLogs", "UnitTest.log"));
-            
-            
-            //await fileLoggingChannel.Init();
-            
-            //loggingSession.AddLoggingChannel(fileLoggingChannel);
+            var channel = new FileLoggingChannel("TestChannel", await StorageFolder.GetFolderFromPathAsync(path),logFileName)
+            {
+                DetailLevel = LogLevel.INFO,
+                IsEnabled = true,
+                MaxFileSize = 102400 //1000 KB
+            };
+            await channel.Init();
 
-            //for (int i = 0; i < 50; i++)
-            //{
-            //    await loggingSession.LogTo<FileLoggingChannel>(new LogEntry(LogLevel.INFO, "Test message"));
-            //}
+            loggingSession.AddLoggingChannel(channel);
+
+            for (int i = 0; i < 500; i++)
+            {
+                await loggingSession.LogTo<IFileLoggingChannel>(new LogEntry(LogLevel.INFO, "Test message"));
+            }
 
             loggingSession.Dispose();
         }

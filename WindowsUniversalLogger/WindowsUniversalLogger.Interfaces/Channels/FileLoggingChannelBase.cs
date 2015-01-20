@@ -38,6 +38,7 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
             this.IsEnabled = true;
             this.DetailLevel = LogLevel.INFO;
+            this.MaxFileSize = 51200;
         }
 
         public IStorageFolder Folder { get; private set; }
@@ -81,6 +82,16 @@ namespace WindowsUniversalLogger.Interfaces.Channels
                 return false;
             }
 
+            var sb = new StringBuilder();
+            sb.Append(logEntry.LogLevel)
+                .Append('\t')
+                .Append(logEntry.Time.ToString("O"))
+                .Append('\t')
+                .Append(logEntry.Message)
+                .AppendLine();
+
+            await _fileLock.WaitAsync();
+
             try
             {
                 if (!await this.LogFile.Exists())
@@ -89,21 +100,17 @@ namespace WindowsUniversalLogger.Interfaces.Channels
                 }
 
                 var currentFileSize = await this.LogFile.GetFileSize();
-                var availableSpace = await this.Folder.GetFreeSpace();
 
                 // todo check is currentFileSize less then MaxFileSize
 
-                var sb = new StringBuilder();
-                sb.Append(logEntry.LogLevel)
-                    .Append('\t')
-                    .Append(logEntry.Time.ToString("O"))
-                    .Append('\t')
-                    .Append(logEntry.Message)
-                    .AppendLine();
-
-                await _fileLock.WaitAsync();
-
-                await FileIO.AppendTextAsync(this.LogFile, sb.ToString(), UnicodeEncoding.Utf8);
+                if (currentFileSize > this.MaxFileSize)
+                {
+                    await FileIO.WriteTextAsync(this.LogFile, sb.ToString(), UnicodeEncoding.Utf8);
+                }
+                else
+                {
+                    await FileIO.AppendTextAsync(this.LogFile, sb.ToString(), UnicodeEncoding.Utf8);
+                }
             }
             catch (Exception e)
             {
@@ -120,7 +127,7 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
