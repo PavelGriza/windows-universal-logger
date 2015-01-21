@@ -1,6 +1,8 @@
 ﻿using System;
-using System.IO;
+using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Storage;
+using Windows.System.Threading;
 using WindowsUniversalLogger.Interfaces;
 using WindowsUniversalLogger.Interfaces.Channels;
 using WindowsUniversalLogger.Logging;

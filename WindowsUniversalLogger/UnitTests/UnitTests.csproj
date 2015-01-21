@@ -59,13 +59,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsUniversalLogger.Interfaces\WindowsUniversalLogger.Interfaces.csproj">
+    <ProjectReference Include="..\WindowsUniversalLogger.Interfaces\Interfaces.csproj">
       <Project>{ea0249d7-7560-4fa1-b065-a787dad29ccc}</Project>
-      <Name>WindowsUniversalLogger.Interfaces</Name>
+      <Name>Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WindowsUniversalLogger.Logging\WindowsUniversalLogger.Logging.csproj">
+    <ProjectReference Include="..\WindowsUniversalLogger.Logging\Logging.csproj">
       <Project>{f73f8510-00cc-4b86-895b-4b4a83c0d499}</Project>
-      <Name>WindowsUniversalLogger.Logging</Name>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

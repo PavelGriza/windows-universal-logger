@@ -3,17 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsUniversalLogger", "WindowsUniversalLogger", "{BCF6E58E-C383-4001-8F85-E16C224526AE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{BCF6E58E-C383-4001-8F85-E16C224526AE}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WindowsUniversalLogger.Shared", "WindowsUniversalLogger\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.shproj", "{99E1DCFE-C96B-4B33-BCE5-3FC47F176854}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "WindowsUniversalLogger.Interfaces\Interfaces.csproj", "{EA0249D7-7560-4FA1-B065-A787DAD29CCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.Windows", "WindowsUniversalLogger\WindowsUniversalLogger.Windows\WindowsUniversalLogger.Windows.csproj", "{32900813-6962-4573-AF82-3167C3F7B60D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.WindowsPhone", "WindowsUniversalLogger\WindowsUniversalLogger.WindowsPhone\WindowsUniversalLogger.WindowsPhone.csproj", "{EFF144B1-D149-480B-9DBC-57265BF9057E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.Interfaces", "WindowsUniversalLogger.Interfaces\WindowsUniversalLogger.Interfaces.csproj", "{EA0249D7-7560-4FA1-B065-A787DAD29CCC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.Logging", "WindowsUniversalLogger.Logging\WindowsUniversalLogger.Logging.csproj", "{F73F8510-00CC-4B86-895B-4B4A83C0D499}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "WindowsUniversalLogger.Logging\Logging.csproj", "{F73F8510-00CC-4B86-895B-4B4A83C0D499}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{BDA71486-7358-422E-9F66-CE3F2279E7EC}"
 EndProject
@@ -22,11 +16,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CDED05
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WindowsUniversalLogger.Shared", "WindowsUniversalLogger.Sample\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.shproj", "{99E1DCFE-C96B-4B33-BCE5-3FC47F176854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.Windows", "WindowsUniversalLogger.Sample\WindowsUniversalLogger.Windows\WindowsUniversalLogger.Windows.csproj", "{32900813-6962-4573-AF82-3167C3F7B60D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsUniversalLogger.WindowsPhone", "WindowsUniversalLogger.Sample\WindowsUniversalLogger.WindowsPhone\WindowsUniversalLogger.WindowsPhone.csproj", "{EFF144B1-D149-480B-9DBC-57265BF9057E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		WindowsUniversalLogger\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{eff144b1-d149-480b-9dbc-57265bf9057e}*SharedItemsImports = 4
-		WindowsUniversalLogger\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{32900813-6962-4573-af82-3167c3f7b60d}*SharedItemsImports = 4
-		WindowsUniversalLogger\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{99e1dcfe-c96b-4b33-bce5-3fc47f176854}*SharedItemsImports = 13
+		WindowsUniversalLogger.Sample\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{eff144b1-d149-480b-9dbc-57265bf9057e}*SharedItemsImports = 4
+		WindowsUniversalLogger.Sample\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{32900813-6962-4573-af82-3167c3f7b60d}*SharedItemsImports = 4
+		WindowsUniversalLogger.Sample\WindowsUniversalLogger.Shared\WindowsUniversalLogger.Shared.projitems*{99e1dcfe-c96b-4b33-bce5-3fc47f176854}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +39,36 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|x64.ActiveCfg = Release|Any CPU
+		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|x86.ActiveCfg = Release|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|x64.ActiveCfg = Release|Any CPU
+		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|x86.ActiveCfg = Release|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|x64.ActiveCfg = Release|Any CPU
+		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{32900813-6962-4573-AF82-3167C3F7B60D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32900813-6962-4573-AF82-3167C3F7B60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32900813-6962-4573-AF82-3167C3F7B60D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -83,36 +113,6 @@ Global
 		{EFF144B1-D149-480B-9DBC-57265BF9057E}.Release|x86.ActiveCfg = Release|x86
 		{EFF144B1-D149-480B-9DBC-57265BF9057E}.Release|x86.Build.0 = Release|x86
 		{EFF144B1-D149-480B-9DBC-57265BF9057E}.Release|x86.Deploy.0 = Release|x86
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|ARM.ActiveCfg = Release|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|x64.ActiveCfg = Release|Any CPU
-		{EA0249D7-7560-4FA1-B065-A787DAD29CCC}.Release|x86.ActiveCfg = Release|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|ARM.ActiveCfg = Release|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|x64.ActiveCfg = Release|Any CPU
-		{F73F8510-00CC-4B86-895B-4B4A83C0D499}.Release|x86.ActiveCfg = Release|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|ARM.ActiveCfg = Release|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|x64.ActiveCfg = Release|Any CPU
-		{BDA71486-7358-422E-9F66-CE3F2279E7EC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,9 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\WindowsUniversalLogger.Interfaces\WindowsUniversalLogger.Interfaces.csproj">
+    <ProjectReference Include="..\WindowsUniversalLogger.Interfaces\Interfaces.csproj">
       <Project>{ea0249d7-7560-4fa1-b065-a787dad29ccc}</Project>
-      <Name>WindowsUniversalLogger.Interfaces</Name>
+      <Name>Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
