@@ -101,8 +101,6 @@ namespace WindowsUniversalLogger.Interfaces.Channels
 
                 var currentFileSize = await this.LogFile.GetFileSize();
 
-                // todo check is currentFileSize less then MaxFileSize
-
                 if (currentFileSize > this.MaxFileSize)
                 {
                     await FileIO.WriteTextAsync(this.LogFile, sb.ToString(), UnicodeEncoding.Utf8);
@@ -114,7 +112,6 @@ namespace WindowsUniversalLogger.Interfaces.Channels
             }
             catch (Exception e)
             {
-                // todo: handle
                 return false;
             }
             finally
