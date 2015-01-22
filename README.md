@@ -18,7 +18,7 @@ ILoggingSession session = LoggingSession.Instance;
 Then you need to instantiate one or several <b>ILoggingChannel</b> objects:
 ```c#
 ILoggingChannel channel = new FileLoggingChannel(
-    App.FileLoggingChannelName,
+    "UniqueChannelName",
     ApplicationData.Current.LocalFolder, 
     "logs.txt");
 await channel.Init();
