@@ -80,6 +80,10 @@ public sealed partial class App : Application
 }
 ```
 
+How to run unit tests
+---
+> Read how to <a href="http://xunit.github.io/docs/getting-started.html#run-tests" target="_blank">run tests with the xUnit.net console runner</a>  
+
 License
 ---
 WindowsUniversalLogger is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" >License Apache 2.0 License</a>. Refer to license file for more information.
