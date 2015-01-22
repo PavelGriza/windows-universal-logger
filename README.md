@@ -85,7 +85,11 @@ public sealed partial class App : Application
 
 How to run unit tests
 ---
-> Read how to <a href="http://xunit.github.io/docs/getting-started.html#run-tests" target="_blank">run tests with the xUnit.net console runner</a>  
+> Read how to <a href="http://xunit.github.io/docs/getting-started.html#run-tests" target="_blank">run tests with the xUnit.net console runner</a>
+
+Install from NuGet
+---
+> Watch at <a href="https://www.nuget.org/packages/WindowsUniversalLogger/1.0.0" target="_blank">Windows Universal App Logger</a>
 
 License
 ---
