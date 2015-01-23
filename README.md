@@ -35,6 +35,7 @@ await LoggingSession.Instance.LogToAllChannels(
 How to logging unhandled exception in Windows Universal Application
 ---
 For logging unhandled exceptions you need to open App.xaml.cs and add envent handler for UnhandledException event.
+Before using in Shared library you need to add reference to WindowsUniversalLogger.Logging library (or install from <a href="https://www.nuget.org/packages/WindowsUniversalLogger/1.0.0" target="_blank">nuget package</a>) into both of your Win and WP projects 
 Here it's a simple code snippet:
 ```c#
 /// ...
@@ -57,7 +58,10 @@ public sealed partial class App : Application
 	protected async override void OnLaunched(LaunchActivatedEventArgs e)
 	{
 		ILoggingSession session = LoggingSession.Instance;
-		ILoggingChannel channel = new FileLoggingChannel("MyChannel");
+		ILoggingChannel channel = new FileLoggingChannel(
+			"UniqueChannelName", 
+			ApplicationData.Current.LocalFolder, 
+			"logs.txt");
 		await channel.Init();
 		session.AddLoggingChannel(channel);
 
