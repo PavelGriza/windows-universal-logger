@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WindowsUniversalLogger.Interfaces;
 using WindowsUniversalLogger.Interfaces.Channels;
-using WindowsUniversalLogger.Interfaces.Extensions;
+using WindowsUniversalLogger.Extensions;
 
 namespace WindowsUniversalLogger.Logging.Sessions
 {

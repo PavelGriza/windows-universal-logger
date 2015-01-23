@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace WindowsUniversalLogger.Interfaces.Extensions
+namespace WindowsUniversalLogger.Extensions
 {
     public static class StorageExtensions
     {

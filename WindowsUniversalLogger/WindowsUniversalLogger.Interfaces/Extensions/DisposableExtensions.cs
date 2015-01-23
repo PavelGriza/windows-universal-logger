@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WindowsUniversalLogger.Interfaces.Extensions
+namespace WindowsUniversalLogger.Extensions
 {
     public static class DisposableExtensions
     {

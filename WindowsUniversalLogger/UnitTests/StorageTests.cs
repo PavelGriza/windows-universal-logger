@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using Windows.Storage;
-using WindowsUniversalLogger.Interfaces.Extensions;
+using WindowsUniversalLogger.Extensions;
 using Xunit;
 
 namespace UnitTests

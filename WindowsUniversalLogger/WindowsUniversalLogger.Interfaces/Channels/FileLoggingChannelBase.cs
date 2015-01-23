@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
-using WindowsUniversalLogger.Interfaces.Extensions;
+using WindowsUniversalLogger.Extensions;
 using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace WindowsUniversalLogger.Interfaces.Channels
