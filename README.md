@@ -93,7 +93,7 @@ How to run unit tests
 
 Install from NuGet
 ---
-> Watch at <a href="https://www.nuget.org/packages/WindowsUniversalLogger/1.0.0" target="_blank">Windows Universal App Logger</a>
+> Watch at <a href="https://www.nuget.org/packages/WindowsUniversalLogger/" target="_blank">Windows Universal App Logger</a>
 
 License
 ---
